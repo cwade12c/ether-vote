@@ -141,6 +141,7 @@ byteCode = compiledCode.contracts[':Voting'].bytecode;
 **Step 5.2 -** Deploy the smart contract to the Ethereum blockchain by invoking `EtherVoteContract.new(...)`, which takes in two parameters:
 * The first parameter are the values for the constructor - in this case, our list of candidates to vote for
 * The second parameter is an object that contains the following properties:
+
     | Property | Description |
     | ------ | ------ |
     | data | The compiled bytecode that will be deployed to the Ethereum blockchain |
