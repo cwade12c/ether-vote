@@ -19,7 +19,7 @@ This current version is a proof of concept. Voting systems can serve as a buildi
 * Implement a payment system into the dapp that would allow users to buy/sell voting tokens
 
 
-### Installation
+# Installation
 
 ether-vote requires [Node.js](https://nodejs.org/) and [bower](https://bower.io/) to run.
 
