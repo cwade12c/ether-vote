@@ -84,8 +84,8 @@ Listening on localhost:8545
 
 **Step 4.1 -** Include web3.js
 ```
-> Web3 = require('web3');
-> web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+Web3 = require('web3');
+web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
 ```
 
 **Step 4.2 -** Set the output of *EtherVote.sol* to a variable
@@ -116,3 +116,40 @@ The output will return a JSON object that contains important information like th
   sourceList: [ '' ],
   sources: { '': { AST: [Object] } } }
 ```
+
+**Step 5.0 -** Create an ABI definition object by passing in the ABI definition as JSON from the *compiledCode* object that was created in Step 4.3. Then, pass this ABI definition object to the `web3.eth.contract` function in order to create an *EtherVote* object.
+```
+abiDefinition = JSON.parse(compiledCode.contracts[':EtherVote'].interface);
+EtherVoteContract = web3.eth.contract(abiDefinition);
+```
+
+**Step 5.1 -** Save the *byteCode* object from the *compiledCode* object to a variable, as we will use this when calling our *EtherVoteContract*'s prototypical `.new()` function
+```
+byteCode = compiledCode.contracts[':Voting'].bytecode;
+```
+
+**Step 5.2 -** Deploy the smart contract to the Ethereum blockchain by invoking `EtherVoteContract.new(...)`, which takes in two parameters:
+* The first parameter are the values for the constructor - in this case, our list of candidates to vote for
+* The second parameter is an object that contains the following properties:
+    | Property | Description |
+    | ------ | ------ |
+    | data | The compiled bytecode that will be deployed to the Ethereum blockchain |
+    | from | The address that will deploy the smart contract |
+    | gas | The amount of money that will be offered to miners in order to include the code on the blockchain  |
+
+```
+deployedContract = EtherVoteContract.new(['Kurisu', 'Holo', 'Rin', 'Haruhi', 'Mitsuha'], 
+                        {
+                            data: byteCode, 
+                            from: web3.eth.accounts[0], 
+                            gas: 4700000
+                        }
+                    );
+```
+
+**Step 5.3 -** Create an instance of the smart contract by invoking the `at` function on the *EtherVoteContract* object, passing in the address property from the *deployedContract* object that was created in Step 5.2
+```
+contractInstance = VotingContract.at(deployedContract.address);
+```
+
+Congratulations, you are now ready to interact with the dapp!
