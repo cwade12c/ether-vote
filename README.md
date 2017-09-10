@@ -23,19 +23,19 @@ This current version is a proof of concept. Voting systems can serve as a buildi
 
 ether-vote requires [Node.js](https://nodejs.org/) and [bower](https://bower.io/) to run.
 
-Install the frontend dependencies:
+**Step 1 -** Install the frontend dependencies:
 
 ```
 bower install
 ```
 
-Install the node modules:
+**Step 2 -** Install the node modules:
 
 ```
 npm install
 ```
 
-Run `testrpc`
+**Step 3 -** Run `testrpc`
 
 ```
 node_modules/.bin/testrpc
@@ -78,4 +78,41 @@ Mnemonic:      drama aspect juice culture foot federal frequent pizza hawk giggl
 Base HD Path:  m/44'/60'/0'/0/{account_index}
 
 Listening on localhost:8545
+```
+
+**Step 4.0 -** Run `node`
+
+**Step 4.1 -** Include web3.js
+```
+> Web3 = require('web3');
+> web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+```
+
+**Step 4.2 -** Set the output of *EtherVote.sol* to a variable
+```
+smartContract = fs.readFileSync('EtherVote.sol').toString();
+```
+
+**Step 4.3 -** Compile the contract using `solc`
+```
+solc = require('solc');
+compiledCode = solc.compile(smartContract);
+```
+
+The output will return a JSON object that contains important information like the Ethereum Contract Application Binary Interface (ABI) and smart contract bytecode. For example:
+```
+{ contracts: 
+   { ':EtherVote': 
+      { assembly: [Object],
+        bytecode: '6060604052341561000f57600080fd5b6040516103dc3803806103dc833981016040528080518201919050505b806001908051906020019061004292919061004a565b505b506100c2565b82805482825590600052602060002090810192821561008c579160200282015b8281111561008b57825182906000191690559160200191906001019061006a565b5b509050610099919061009d565b5090565b6100bf91905b808211156100bb57600081600............continued............',
+        functionHashes: [Object],
+        gasEstimates: [Object],
+        interface: '[{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"numberOfVotesReceived","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},............continued............]',
+        metadata: '{"compiler":{"version":"0.4.16+commit.d7661dd9"},"language":"Solidity","output":{"abi":[{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"numberOfVotesReceived","outputs":[{"name":"","type":"uint8"}],............continued............}]}',
+        opcodes: 'PUSH1 0x60 PUSH1 0x40 MSTORE CALLVALUE ISZERO PUSH2 0xF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x40 MLOAD PUSH2 0x3DC CODESIZE SUB DUP1 PUSH2 0x3DC DUP4 CODECOPY DUP2 ADD PUSH1 0x40 MSTORE DUP1 DUP1 MLOAD DUP3 ADD SWAP2 SWAP1 POP POP JUMPDEST DUP1 PUSH1 0x1 SWAP1 DUP1 MLOAD SWAP1 PUSH1 0x20 ADD SWAP1 PUSH2 0x42 SWAP3 SWAP2 SWAP1 PUSH2 0x4A JUMP JUMPDEST POP JUMPDEST POP PUSH2 0xC2 JUMP JUMPDEST DUP3 DUP1 SLOAD DUP3 DUP3 SSTORE SWAP1 PUSH1 0x0 MSTORE PUSH1 0x20 ............continued............ ',
+        runtimeBytecode: '60606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630d8de22c1461006a5780633898ac29146100ab5780638c1d9f30146100ec57806392d7df4a1461012b578063dcebb25e1461016a575b600080fd5b34156100............continued............',
+        srcmap: '2',
+        srcmapRuntime: '',
+  sourceList: [ '' ],
+  sources: { '': { AST: [Object] } } }
 ```
