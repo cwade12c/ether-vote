@@ -1,0 +1,10 @@
+{
+  "name": "ether-vote",
+  "appPath": "web",
+  "version": "0.0.1",
+  "dependencies": {
+    "lodash": "~4.17.4",
+    "bootstrap": "v4.0.0-alpha.6",
+    "less": "~2.7.2"
+  }
+}
