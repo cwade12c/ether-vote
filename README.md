@@ -18,6 +18,16 @@ This current version is a proof of concept. Voting systems can serve as a buildi
 * Implement a voting token (with a limited supply) into the smart contract
 * Implement a payment system into the dapp that would allow users to buy/sell voting tokens
 
+# Usage (Node)
+***To retrieve the number of votes for a given candidate:***
+```
+contractInstance.getTotalVotesForCandidate.call('Holo');
+```
+
+***To cast a vote for a particular candidate:***
+```
+contractInstance.setVoteForCandidate('Kurisu', {from: web3.eth.accounts[1]});
+```
 
 # Installation
 
@@ -149,7 +159,7 @@ deployedContract = EtherVoteContract.new(['Kurisu', 'Holo', 'Rin', 'Haruhi', 'Mi
 
 **Step 5.3 -** Create an instance of the smart contract by invoking the `at` function on the *EtherVoteContract* object, passing in the address property from the *deployedContract* object that was created in Step 5.2
 ```
-contractInstance = VotingContract.at(deployedContract.address);
+contractInstance = EtherVoteContract.at(deployedContract.address);
 ```
 
-Congratulations, you are now ready to interact with the dapp!
+Congratulations, you are now ready to interact with the dapp! (See: Usage above)
